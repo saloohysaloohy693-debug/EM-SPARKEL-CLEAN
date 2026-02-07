@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EM SPARKLE CLEAN</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--primary:#6366F1;--primary-hover:#4F46E5;--dark:#111827;
+--light:#F3F4F6;--medium:#D1D5DB;--text:#374151;
+--white:#fff;--success:#10B981;--danger:#EF4444;
+}
+*{box-sizing:border-box}
+body{
+margin:0;font-family:Poppins,sans-serif;
+background:var(--light);color:var(--text)
+}
+.app{
+max-width:420px;margin:auto;background:#fff;
+min-height:100vh;display:flex;flex-direction:column
+}
+.header{text-align:center;padding:20px;border-bottom:1px solid var(--light)}
+h1{margin:0;font-size:24px;color:var(--dark)}
+.progress-bar{height:8px;background:var(--light)}
+.progress-bar-inner{height:100%;width:0;background:var(--primary);transition:.4s}
+
+.step{display:none;padding:25px;flex:1}
+.step.active{display:block}
+
+.option-group{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.option-group.three-cols{grid-template-columns:repeat(3,1fr)}
+
+.option-card{
+border:2px solid var(--medium);border-radius:12px;
+padding:15px;text-align:center;cursor:pointer;
+transition:.2s;font-weight:500
+}
+.option-card.active{
+background:var(--primary);color:#fff;border-color:var(--primary)
+}
+
+.counter{
+display:flex;justify-content:space-between;
+background:var(--light);padding:10px;border-radius:12px
+}
+.counter-btn{
+width:40px;height:40px;border-radius:50%;
+border:none;font-size:24px;font-weight:bold;
+cursor:pointer;color:var(--primary)
+}
+
+.grid-item{
+padding:12px;border-radius:8px;
+background:var(--light);text-align:center;
+cursor:pointer
+}
+.grid-item.active{
+background:var(--primary);color:#fff
+}
+
+.footer{
+padding:20px;border-top:1px solid var(--light);
+position:sticky;bottom:0;background:#fff
+}
+.btn{
+width:100%;padding:15px;border:none;
+border-radius:12px;font-size:16px;font-weight:600;
+cursor:pointer
+}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:disabled{background:var(--medium)}
+
+.summary-card{
+background:var(--light);padding:20px;
+border-radius:12px;line-height:1.8
+}
+.summary-card .total{
+margin-top:15px;border-top:1px solid var(--medium);
+padding-top:15px;font-size:20px;font-weight:bold
+}
+
+.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.service-card{
+border:2px solid var(--medium);
+border-radius:12px;overflow:hidden;
+cursor:pointer;transition:.2s
+}
+.service-card.active{border-color:var(--primary)}
+.service-card img{width:100%;height:100px;object-fit:cover}
+.service-card-content{text-align:center;padding:10px}
+
+.lang-switcher{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
+.lang-switcher button{
+border:2px solid var(--medium);
+background:none;border-radius:8px;
+padding:6px 12px;font-weight:600;cursor:pointer
+}
+.lang-switcher .active{background:var(--primary);color:#fff}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<div class="header"><h1>EM SPARKLE CLEAN</h1></div>
+<div class="progress-bar"><div id="progressBar" class="progress-bar-inner"></div></div>
+
+<div id="step1" class="step active">
+<div class="lang-switcher">
+<button onclick="setLanguage('en')">EN</button>
+<button onclick="setLanguage('ar')" class="active">AR</button>
+</div>
+<h3>اختر مدينتك</h3>
+<div class="option-group">
+<div class="option-card" onclick="setCity('Dubai',this)">دبي</div>
+<div class="option-card" onclick="setCity('Sharjah',this)">الشارقة</div>
+</div>
+</div>
+
+<div id="step2" class="step">
+<h3>تفاصيل الخدمة</h3>
+<p>عدد العمال</p>
+<div class="counter">
+<button class="counter-btn" onclick="changeWorkers(-1)">−</button>
+<b id="workers">1</b>
+<button class="counter-btn" onclick="changeWorkers(1)">+</button>
+</div>
+<p>عدد الساعات</p>
+<div class="counter">
+<button class="counter-btn" onclick="changeHours(-1)">−</button>
+<b id="hours">2</b>
+<button class="counter-btn" onclick="changeHours(1)">+</button>
+</div>
+</div>
+
+<div id="step3" class="step">
+<h3>خدمات إضافية</h3>
+<div id="extra-services-grid" class="service-grid"></div>
+</div>
+
+<div id="step4" class="step">
+<h3>اختر اليوم والوقت</h3>
+<div id="days" class="option-group"></div><br>
+<div id="times" class="option-group"></div>
+</div>
+
+<div id="step5" class="step">
+<h3>معلومات التواصل</h3>
+<input id="phone" placeholder="رقم الهاتف"><br><br>
+<input id="address" placeholder="العنوان">
+</div>
+
+<div id="step6" class="step">
+<h3>ملخص الحجز</h3>
+<div id="summary" class="summary-card"></div>
+</div>
+
+<div id="step7" class="step">
+<h3>تم الحجز بنجاح ✔️</h3>
+<p>سنتواصل معكم خلال دقائق</p>
+</div>
+
+<div class="footer">
+<button id="nextBtn" class="btn btn-primary" onclick="nextStep()" disabled>التالي</button>
+</div>
+
+</div>
+
+<script>
+/* ===== STATE ===== */
+let step=1;
+const booking={workers:1,hours:2,extras:[]};
+
+/* ===== BASIC ===== */
+function setCity(c,el){select(el);enable()}
+function changeWorkers(v){booking.workers=Math.max(1,booking.workers+v);workers.innerText=booking.workers}
+function changeHours(v){booking.hours=Math.max(1,booking.hours+v);hours.innerText=booking.hours}
+function select(el){el.parentNode.querySelectorAll('*').forEach(e=>e.classList.remove('active'));el.classList.add('active')}
+function enable(){nextBtn.disabled=false}
+
+/* ===== EXTRAS ===== */
+const extras=[
+{name:'تنظيف نوافذ',price:25,img:'https://via.placeholder.com/150'},
+{name:'تنظيف فرن',price:25,img:'https://via.placeholder.com/150'}
+];
+extras.forEach(e=>{
+let d=document.createElement('div');
+d.className='service-card';
+d.innerHTML=`<img src="${e.img}"><div class="service-card-content">${e.name}<br>${e.price} AED</div>`;
+d.onclick=()=>{d.classList.toggle('active');booking.extras.push(e)};
+document.getElementById('extra-services-grid').appendChild(d);
+});
+
+/* ===== DAYS ===== */
+['الأحد','الاثنين','الثلاثاء'].forEach(d=>{
+let div=document.createElement('div');
+div.className='grid-item';div.innerText=d;
+div.onclick=()=>{select(div);enable()};
+days.appendChild(div);
+});
+['8-10','10-12','12-2'].forEach(t=>{
+let div=document.createElement('div');
+div.className='grid-item';div.innerText=t;
+div.onclick=()=>{select(div);enable()};
+times.appendChild(div);
+});
+
+/* ===== SUMMARY ===== */
+function renderSummary(){
+summary.innerHTML=
+`عدد العمال: ${booking.workers}<br>
+عدد الساعات: ${booking.hours}<br>
+خدمات إضافية: ${booking.extras.map(e=>e.name).join(', ')||'لا يوجد'}`;
+}
+
+/* ===== NAV ===== */
+function nextStep(){
+document.getElementById('step'+step).classList.remove('active');
+step++;
+document.getElementById('step'+step).classList.add('active');
+progressBar.style.width=((step-1)/6*100)+'%';
+nextBtn.disabled=true;
+if(step===6)renderSummary();
+if(step===7)window.open('https://wa.me/971528969251');
+}
+</script>
+</body>
+</html>
