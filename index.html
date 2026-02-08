@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EM SPARKLE CLEAN - خدمات تنظيف احترافية</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== CSS VARIABLES - FEMININE PALETTE ===== */
+:root {
+  --primary: #F4B6C2;           /* Soft Rose Pink */
+  --secondary: #E88DA5;         /* Warm Blush */
+  --accent: #D7263D;            /* Elegant Red */
+  --bg-ivory: #FFF9F9;          /* Ivory White */
+  --bg-nude: #FDF1F3;           /* Light Nude */
+  --text-primary: #3A3A3A;      /* Primary Text */
+  --text-secondary: #7A7A7A;    /* Secondary Text */
+  --gold: #D8B384;              /* Soft Gold */
+  --white: #ffffff;
+  --shadow: rgba(215, 38, 61, 0.15);
+}
+
+/* ===== GLOBAL RESET ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--bg-ivory);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+body[dir="ltr"] {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ===== APP CONTAINER ===== */
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--white);
+  min-height: 100vh;
+  box-shadow: 0 0 40px rgba(244, 182, 194, 0.2);
+  position: relative;
+}
+
+/* ===== LANGUAGE TOGGLE (Top Right) ===== */
+.lang-toggle {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 1000;
+}
+
+[dir="ltr"] .lang-toggle {
+  right: auto;
+  left: 15px;
+}
+
+.lang-btn {
+  background: var(--white);
+  border: 2px solid var(--primary);
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.lang-btn:hover {
+  background: var(--primary);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* ===== HEADER WITH LOGO ===== */
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  padding: 60px 20px 30px;
+  text-align: center;
+  position: relative;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  box-shadow: 0 4px 20px var(--shadow);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.header-logo {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.header-text h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--white);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.header-text p {
+  font-size: 14px;
+  color: var(--white);
+  opacity: 0.95;
+  font-weight: 400;
+}
+
+/* ===== PROGRESS BAR ===== */
+.progress-container {
+  padding: 20px;
+  background: var(--bg-nude);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.progress-bar {
+  height: 12px;
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress-bar-inner {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width 0.5s ease;
+  border-radius: 20px;
+  position: relative;
+}
+
+.progress-bar-inner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ===== STEP CONTAINER ===== */
+.step {
+  display: none;
+  padding: 25px;
+  animation: fadeSlideIn 0.5s ease;
+}
+
+.step.active {
+  display: block;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.step h3 {
+  font-size: 22px;
+  color: var(--text-primary);
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.step h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 10px;
+}
+
+.step label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 15px;
+}
+
+/* ===== CITY SELECTION (Step 1) ===== */
+.city-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.city-btn {
+  padding: 25px 20px;
+  border: 3px solid var(--primary);
+  border-radius: 20px;
+  background: var(--white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.city-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: var(--primary);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+  z-index: 0;
+}
+
+.city-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.city-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.city-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px var(--shadow);
+}
+
+.city-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+  box-shadow: 0 10px 25px rgba(215, 38, 61, 0.3);
+}
+
+.city-btn.active::before {
+  width: 0;
+  height: 0;
+}
+
+/* ===== COUNTER WITH HEARTS ===== */
+.counter-container {
+  margin-bottom: 25px;
+}
+
+.counter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-nude);
+  padding: 20px 25px;
+  border-radius: 20px;
+  margin-top: 12px;
+  box-shadow: 0 4px 15px rgba(244, 182, 194, 0.2);
+}
+
+.counter-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px var(--shadow);
+  position: relative;
+}
+
+.counter-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(215, 38, 61, 0.3);
+}
+
+.counter-btn:active {
+  transform: scale(0.95);
+}
+
+/* Heart Icon in Buttons */
+.counter-btn::before {
+  content: '♥';
+  font-size: 28px;
+  color: var(--primary);
+  transition: all 0.3s ease;
+}
+
+.counter-btn.active::before {
+  color: var(--accent);
+  animation: heartBeat 0.6s ease;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.3); }
+  50% { transform: scale(1.1); }
+  75% { transform: scale(1.25); }
+}
+
+.counter-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 60px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Heart decoration in counter value */
+.counter-value::before,
+.counter-value::after {
+  content: '♥';
+  font-size: 16px;
+  color: var(--primary);
+  opacity: 0.6;
+}
+
+/* ===== EXTRA SERVICES ===== */
+.service-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.service-card {
+  border: 3px solid var(--primary);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--white);
+  position: relative;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px var(--shadow);
+}
+
+.service-card.active {
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px rgba(215, 38, 61, 0.3);
+}
+
+/* Heart checkmark */
+.service-card.active::before {
+  content: '♥';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 35px;
+  height: 35px;
+  background: var(--accent);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(215, 38, 61, 0.4);
+  animation: heartPop 0.4s ease;
+}
+
+@keyframes heartPop {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+[dir="ltr"] .service-card.active::before {
+  right: auto;
+  left: 12px;
+}
+
+.service-card-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.service-card-content {
+  padding: 15px;
+  text-align: center;
+  background: linear-gradient(to bottom, var(--white), var(--bg-nude));
+}
+
+.service-card-content strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.service-card-content .price {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* ===== DATE PICKER (Horizontal Scroll - 31 Days) ===== */
+.date-picker {
+  margin-bottom: 25px;
+}
+
+.date-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 15px 5px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.date-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.date-scroll::-webkit-scrollbar-track {
+  background: var(--bg-nude);
+  border-radius: 10px;
+}
+
+.date-scroll::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+.date-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+.date-item {
+  min-width: 90px;
+  padding: 15px 10px;
+  border: 3px solid var(--primary);
+  border-radius: 15px;
+  background: var(--white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.date-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px var(--shadow);
+}
+
+.date-item.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+  box-shadow: 0 8px 20px rgba(215, 38, 61, 0.3);
+}
+
+/* Heart indicator for selected date */
+.date-item.active::before {
+  content: '♥';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  color: var(--accent);
+  animation: heartFloat 2s ease-in-out infinite;
+}
+
+@keyframes heartFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-5px); }
+}
+
+.date-day {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.date-item.active .date-day {
+  color: var(--white);
+}
+
+.date-number {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.date-item.active .date-number {
+  color: var(--white);
+}
+
+.date-month {
+  font-size: 11px;
+  opacity: 0.8;
+  margin-top: 3px;
+}
+
+/* Weekend badge */
+.date-item.weekend::after {
+  content: '+10';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* ===== TIME PICKER ===== */
+.time-picker {
+  margin-bottom: 25px;
+}
+
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.time-item {
+  padding: 15px;
+  border: 3px solid var(--primary);
+  border-radius: 15px;
+  background: var(--white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  position: relative;
+}
+
+.time-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px var(--shadow);
+}
+
+.time-item.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+  box-shadow: 0 8px 20px rgba(215, 38, 61, 0.3);
+}
+
+/* Heart for selected time */
+.time-item.active::before {
+  content: '♥';
+  position: absolute;
+  top: -10px;
+  right: 50%;
+  transform: translateX(50%);
+  font-size: 20px;
+  color: var(--accent);
+}
+
+.see-more-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--white);
+  border: none;
+  border-radius: 15px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px var(--shadow);
+}
+
+.see-more-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(215, 38, 61, 0.3);
+}
+
+.see-more-btn.hidden {
+  display: none;
+}
+
+/* ===== INPUT FIELDS ===== */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 18px 20px;
+  border: 3px solid var(--primary);
+  border-radius: 15px;
+  font-size: 16px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background: var(--white);
+  color: var(--text-primary);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(215, 38, 61, 0.1);
+}
+
+.input-field::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.phone-input-container {
+  position: relative;
+}
+
+.country-code {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 700;
+  color: var(--text-primary);
+  pointer-events: none;
+}
+
+[dir="ltr"] .country-code {
+  left: auto;
+  right: 20px;
+}
+
+.phone-input-container .input-field {
+  padding-right: 90px;
+}
+
+[dir="ltr"] .phone-input-container .input-field {
+  padding-right: 20px;
+  padding-left: 90px;
+}
+
+/* ===== SUMMARY CARD ===== */
+.summary-card {
+  background: linear-gradient(135deg, var(--bg-nude), var(--white));
+  padding: 25px;
+  border-radius: 20px;
+  margin-bottom: 25px;
+  border: 3px solid var(--primary);
+  box-shadow: 0 8px 25px var(--shadow);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 2px solid var(--primary);
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-row strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.summary-row span {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.summary-total {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 3px solid var(--accent);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-total strong {
+  font-size: 22px;
+  color: var(--text-primary);
+}
+
+.summary-total .total-price {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.summary-total .total-price::before {
+  content: '♥';
+  font-size: 20px;
+}
+
+/* ===== SUCCESS PAGE ===== */
+.success-container {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.success-icon {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 50%;
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  color: var(--white);
+  animation: successPulse 1s ease;
+  box-shadow: 0 10px 30px var(--shadow);
+}
+
+.success-icon::before {
+  content: '♥';
+}
+
+@keyframes successPulse {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.success-container h2 {
+  color: var(--accent);
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.success-container p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  margin-bottom: 15px;
+  line-height: 1.8;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  padding: 25px;
+  background: var(--white);
+  border-top: 3px solid var(--bg-nude);
+  position: sticky;
+  bottom: 0;
+  box-shadow: 0 -4px 20px var(--shadow);
+}
+
+.price-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--bg-nude), var(--white));
+  border-radius: 15px;
+  border: 2px solid var(--primary);
+}
+
+.price-display strong {
+  font-size: 18px;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.price-display .price {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.price-display .price::before {
+  content: '♥';
+  font-size: 20px;
+}
+
+.btn {
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 15px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: var(--white);
+  box-shadow: 0 8px 20px var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '♥♥♥';
+  position: absolute;
+  top: 50%;
+  left: -100%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.btn-primary:hover::before {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(215, 38, 61, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  background: var(--text-secondary);
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+/* ===== ALERT ===== */
+.alert {
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: none;
+  border-left: 4px solid var(--accent);
+}
+
+.alert.show {
+  display: block;
+  animation: slideDown 0.4s ease;
+}
+
+.alert-error {
+  background: #FFF0F0;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .app {
+    max-width: 100%;
+  }
+  
+  .header-logo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .header-text h1 {
+    font-size: 24px;
+  }
+  
+  .city-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== DECORATIVE ELEMENTS ===== */
+.floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.heart-float {
+  position: absolute;
+  font-size: 30px;
+  color: var(--primary);
+  opacity: 0.15;
+  animation: floatUp 15s linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.15;
+  }
+  90% {
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.heart-float:nth-child(1) { left: 10%; animation-delay: 0s; }
+.heart-float:nth-child(2) { left: 30%; animation-delay: 2s; }
+.heart-float:nth-child(3) { left: 50%; animation-delay: 4s; }
+.heart-float:nth-child(4) { left: 70%; animation-delay: 6s; }
+.heart-float:nth-child(5) { left: 90%; animation-delay: 8s; }
+</style>
+</head>
+
+<body dir="rtl">
+<!-- Floating Hearts Background -->
+<div class="floating-hearts">
+  <div class="heart-float">♥</div>
+  <div class="heart-float">♥</div>
+  <div class="heart-float">♥</div>
+  <div class="heart-float">♥</div>
+  <div class="heart-float">♥</div>
+</div>
+
+<div class="app">
+  <!-- Language Toggle (Top Right) -->
+  <div class="lang-toggle">
+    <button class="lang-btn" onclick="toggleLanguage()" id="langBtn">EN</button>
+  </div>
+
+  <!-- HEADER with Logo -->
+  <div class="header">
+    <div class="header-content">
+      <img src="logo.jpg" alt="EM SPARKLE CLEAN" class="header-logo" id="headerLogo">
+      <div class="header-text">
+        <h1 id="headerTitle">EM SPARKLE CLEAN</h1>
+        <p id="headerSubtitle">خدمات تنظيف احترافية</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-info">
+      <span id="stepLabel">الخطوة 1 من 6</span>
+      <span id="stepPercent">17%</span>
+    </div>
+    <div class="progress-bar">
+      <div id="progressBar" class="progress-bar-inner"></div>
+    </div>
+  </div>
+
+  <!-- STEP 1: City Selection -->
+  <div id="step1" class="step active">
+    <h3 id="step1Title">اختاري مدينتك</h3>
+    <div class="city-buttons">
+      <div class="city-btn" onclick="selectCity('Dubai')" id="cityDubai">
+        <span class="city-ar">دبي</span>
+        <span class="city-en" style="display:none">Dubai</span>
+      </div>
+      <div class="city-btn" onclick="selectCity('Sharjah')" id="citySharjah">
+        <span class="city-ar">الشارقة</span>
+        <span class="city-en" style="display:none">Sharjah</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Service Details -->
+  <div id="step2" class="step">
+    <h3 id="step2Title">تفاصيل الخدمة</h3>
+    
+    <div class="counter-container">
+      <label id="workersLabel">عدد العاملات</label>
+      <div class="counter">
+        <button class="counter-btn" onclick="changeWorkers(-1)">−</button>
+        <span class="counter-value" id="workers">1</span>
+        <button class="counter-btn" onclick="changeWorkers(1)">+</button>
+      </div>
+    </div>
+    
+    <div class="counter-container">
+      <label id="hoursLabel">عدد الساعات</label>
+      <div class="counter">
+        <button class="counter-btn" onclick="changeHours(-1)">−</button>
+        <span class="counter-value" id="hours">3</span>
+        <button class="counter-btn" onclick="changeHours(1)">+</button>
+      </div>
+      <small id="minHoursInfo" style="color: var(--text-secondary); font-size: 13px; display: block; margin-top: 8px;"></small>
+    </div>
+  </div>
+
+  <!-- STEP 3: Extra Services -->
+  <div id="step3" class="step">
+    <h3 id="step3Title">خدمات إضافية (اختياري)</h3>
+    <div id="extraServicesGrid" class="service-grid"></div>
+  </div>
+
+  <!-- STEP 4: Date & Time -->
+  <div id="step4" class="step">
+    <h3 id="step4Title">اختاري اليوم والوقت</h3>
+    
+    <div class="date-picker">
+      <label id="dayLabel">اليوم</label>
+      <div id="dateScroll" class="date-scroll"></div>
+    </div>
+    
+    <div class="time-picker">
+      <label id="timeLabel">وقت البدء</label>
+      <div id="timeGrid" class="time-grid"></div>
+      <button id="seeMoreBtn" class="see-more-btn" onclick="toggleMoreTimes()">
+        <span id="seeMoreText">عرض المزيد</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 5: Contact Info -->
+  <div id="step5" class="step">
+    <h3 id="step5Title">معلومات التواصل</h3>
+    
+    <div class="alert alert-error" id="validationAlert"></div>
+    
+    <div class="input-group">
+      <label id="phoneLabel">رقم الهاتف</label>
+      <div class="phone-input-container">
+        <span class="country-code">+971</span>
+        <input 
+          type="tel" 
+          id="phoneInput" 
+          class="input-field" 
+          placeholder="5X XXX XXXX"
+          maxlength="9"
+          oninput="validatePhone()"
+        />
+      </div>
+    </div>
+    
+    <div class="input-group">
+      <label id="addressLabel">العنوان</label>
+      <input 
+        type="text" 
+        id="addressInput" 
+        class="input-field" 
+        placeholder=""
+        oninput="checkStep5Complete()"
+      />
+    </div>
+  </div>
+
+  <!-- STEP 6: Summary -->
+  <div id="step6" class="step">
+    <h3 id="step6Title">ملخص الحجز</h3>
+    <div id="summaryCard" class="summary-card"></div>
+  </div>
+
+  <!-- STEP 7: Success -->
+  <div id="step7" class="step">
+    <div class="success-container">
+      <div class="success-icon"></div>
+      <h2 id="successTitle">تم الحجز بنجاح!</h2>
+      <p id="successMessage">سنتواصل معكِ عبر واتساب خلال دقائق</p>
+      <p id="successNote">شكراً لاختياركِ EM SPARKLE CLEAN ♥</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="price-display">
+      <strong id="totalLabel">الإجمالي:</strong>
+      <span class="price" id="totalPrice">105 AED</span>
+    </div>
+    <button id="nextBtn" class="btn btn-primary" onclick="nextStep()" disabled>
+      <span id="btnText">التالي</span>
+    </button>
+  </div>
+</div>
+
+<script>
+// ========== TRANSLATIONS ==========
+const translations = {
+  ar: {
+    headerSubtitle: 'خدمات تنظيف احترافية',
+    stepLabel: 'الخطوة {current} من {total}',
+    step1Title: 'اختاري مدينتك',
+    step2Title: 'تفاصيل الخدمة',
+    workersLabel: 'عدد العاملات',
+    hoursLabel: 'عدد الساعات',
+    step3Title: 'خدمات إضافية (اختياري)',
+    step4Title: 'اختاري اليوم والوقت',
+    dayLabel: 'اليوم',
+    timeLabel: 'وقت البدء',
+    step5Title: 'معلومات التواصل',
+    phoneLabel: 'رقم الهاتف',
+    phonePlaceholder: '5X XXX XXXX',
+    addressLabel: 'العنوان',
+    addressPlaceholder: 'اكتبي عنوانك بالتفصيل',
+    step6Title: 'ملخص الحجز',
+    summaryCity: 'المدينة',
+    summaryWorkers: 'عدد العاملات',
+    summaryHours: 'عدد الساعات',
+    summaryExtras: 'خدمات إضافية',
+    summaryDate: 'التاريخ',
+    summaryTime: 'وقت البدء',
+    summaryPhone: 'رقم الهاتف',
+    summaryAddress: 'العنوان',
+    summaryTotal: 'الإجمالي',
+    noExtras: 'لا يوجد',
+    successTitle: 'تم الحجز بنجاح!',
+    successMessage: 'سنتواصل معكِ عبر واتساب خلال دقائق',
+    successNote: 'شكراً لاختياركِ EM SPARKLE CLEAN ♥',
+    totalLabel: 'الإجمالي:',
+    btnNext: 'التالي',
+    btnContinue: 'متابعة',
+    btnSendWhatsApp: 'إرسال إلى واتساب',
+    seeMore: 'عرض المزيد',
+    seeLess: 'عرض أقل',
+    validationPhone: 'يرجى إدخال رقم هاتف صحيح (9 أرقام)',
+    validationAddress: 'يرجى إدخال العنوان',
+    minHoursDubaiWeekend: 'الحد الأدنى في أيام الجمعة والسبت والأحد: 4 ساعات',
+    minHoursDubaiWeekday: 'الحد الأدنى: 3 ساعات',
+    minHoursSharjahWeekend: 'الحد الأدنى في أيام الخميس والجمعة والسبت: 3 ساعات',
+    minHoursSharjahWeekday: 'الحد الأدنى: 2 ساعات',
+  },
+  en: {
+    headerSubtitle: 'Professional Cleaning Services',
+    stepLabel: 'Step {current} of {total}',
+    step1Title: 'Choose Your City',
+    step2Title: 'Service Details',
+    workersLabel: 'Number of Cleaners',
+    hoursLabel: 'Number of Hours',
+    step3Title: 'Additional Services (Optional)',
+    step4Title: 'Choose Date & Time',
+    dayLabel: 'Date',
+    timeLabel: 'Start Time',
+    step5Title: 'Contact Information',
+    phoneLabel: 'Phone Number',
+    phonePlaceholder: '5X XXX XXXX',
+    addressLabel: 'Address',
+    addressPlaceholder: 'Enter your detailed address',
+    step6Title: 'Booking Summary',
+    summaryCity: 'City',
+    summaryWorkers: 'Cleaners',
+    summaryHours: 'Hours',
+    summaryExtras: 'Extra Services',
+    summaryDate: 'Date',
+    summaryTime: 'Start Time',
+    summaryPhone: 'Phone',
+    summaryAddress: 'Address',
+    summaryTotal: 'Total',
+    noExtras: 'None',
+    successTitle: 'Booking Successful!',
+    successMessage: 'We will contact you via WhatsApp within minutes',
+    successNote: 'Thank you for choosing EM SPARKLE CLEAN ♥',
+    totalLabel: 'Total:',
+    btnNext: 'Next',
+    btnContinue: 'Continue',
+    btnSendWhatsApp: 'Send to WhatsApp',
+    seeMore: 'See More',
+    seeLess: 'See Less',
+    validationPhone: 'Please enter a valid phone number (9 digits)',
+    validationAddress: 'Please enter your address',
+    minHoursDubaiWeekend: 'Minimum on Friday, Saturday, Sunday: 4 hours',
+    minHoursDubaiWeekday: 'Minimum: 3 hours',
+    minHoursSharjahWeekend: 'Minimum on Thursday, Friday, Saturday: 3 hours',
+    minHoursSharjahWeekday: 'Minimum: 2 hours',
+  }
+};
+
+// ========== STATE ==========
+let currentStep = 1;
+const totalSteps = 6;
+let currentLanguage = 'ar';
+let showingAllTimes = false;
+
+const bookingData = {
+  city: '',
+  workers: 1,
+  hours: 3,
+  extras: [],
+  date: '',
+  time: '',
+  phone: '',
+  address: ''
+};
+
+// ========== PRICING CONFIG ==========
+const PRICING = {
+  Dubai: {
+    basePrice: 40,      // per hour per worker
+    weekendSurcharge: 10,  // additional per hour
+    minHoursWeekend: 4,    // Fri, Sat, Sun
+    minHoursWeekday: 3,
+    weekendDays: [5, 6, 0] // Friday=5, Saturday=6, Sunday=0
+  },
+  Sharjah: {
+    basePrice: 35,
+    weekendSurcharge: 10,
+    minHoursWeekend: 3,    // Thu, Fri, Sat
+    minHoursWeekday: 2,
+    weekendDays: [4, 5, 6] // Thursday=4, Friday=5, Saturday=6
+  }
+};
+
+const EXTRA_SERVICES = [
+  { 
+    id: 'windows', 
+    nameAr: 'تنظيف النوافذ', 
+    nameEn: 'Window Cleaning', 
+    price: 25,
+    img: 'https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=400&h=300&fit=crop'
+  },
+  { 
+    id: 'oven', 
+    nameAr: 'تنظيف الفرن', 
+    nameEn: 'Oven Deep Clean', 
+    price: 30,
+    img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&h=300&fit=crop'
+  },
+  { 
+    id: 'fridge', 
+    nameAr: 'تنظيف الثلاجة', 
+    nameEn: 'Fridge Cleaning', 
+    price: 25,
+    img: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=400&h=300&fit=crop'
+  },
+  { 
+    id: 'balcony', 
+    nameAr: 'تنظيف الشرفة', 
+    nameEn: 'Balcony Cleaning', 
+    price: 20,
+    img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&h=300&fit=crop'
+  }
+];
+
+// ========== LANGUAGE FUNCTIONS ==========
+function t(key) {
+  return translations[currentLanguage][key] || key;
+}
+
+function toggleLanguage() {
+  currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+  
+  document.documentElement.setAttribute('lang', currentLanguage);
+  document.body.setAttribute('dir', currentLanguage === 'ar' ? 'rtl' : 'ltr');
+  
+  document.getElementById('langBtn').textContent = currentLanguage === 'ar' ? 'EN' : 'AR';
+  
+  updateTranslations();
+  renderExtraServices();
+  renderDates();
+  renderTimes();
+}
+
+function updateTranslations() {
+  document.getElementById('headerSubtitle').textContent = t('headerSubtitle');
+  updateProgress();
+  
+  document.getElementById('step1Title').textContent = t('step1Title');
+  document.getElementById('step2Title').textContent = t('step2Title');
+  document.getElementById('workersLabel').textContent = t('workersLabel');
+  document.getElementById('hoursLabel').textContent = t('hoursLabel');
+  document.getElementById('step3Title').textContent = t('step3Title');
+  document.getElementById('step4Title').textContent = t('step4Title');
+  document.getElementById('dayLabel').textContent = t('dayLabel');
+  document.getElementById('timeLabel').textContent = t('timeLabel');
+  document.getElementById('step5Title').textContent = t('step5Title');
+  document.getElementById('phoneLabel').textContent = t('phoneLabel');
+  document.getElementById('addressLabel').textContent = t('addressLabel');
+  document.getElementById('step6Title').textContent = t('step6Title');
+  
+  document.getElementById('phoneInput').placeholder = t('phonePlaceholder');
+  document.getElementById('addressInput').placeholder = t('addressPlaceholder');
+  
+  document.getElementById('successTitle').textContent = t('successTitle');
+  document.getElementById('successMessage').textContent = t('successMessage');
+  document.getElementById('successNote').textContent = t('successNote');
+  
+  document.getElementById('totalLabel').textContent = t('totalLabel');
+  document.getElementById('seeMoreText').textContent = showingAllTimes ? t('seeLess') : t('seeMore');
+  updateButtonText();
+  updateMinHoursInfo();
+  
+  // City names
+  const cityAr = document.querySelectorAll('.city-ar');
+  const cityEn = document.querySelectorAll('.city-en');
+  cityAr.forEach(el => el.style.display = currentLanguage === 'ar' ? 'inline' : 'none');
+  cityEn.forEach(el => el.style.display = currentLanguage === 'en' ? 'inline' : 'none');
+}
+
+function updateButtonText() {
+  let btnText = t('btnNext');
+  if (currentStep === 5) btnText = t('btnContinue');
+  if (currentStep === 6) btnText = t('btnSendWhatsApp');
+  document.getElementById('btnText').textContent = btnText;
+}
+
+// ========== PROGRESS ==========
+function updateProgress() {
+  const percent = ((currentStep - 1) / (totalSteps - 1)) * 100;
+  document.getElementById('progressBar').style.width = percent + '%';
+  
+  const labelText = t('stepLabel')
+    .replace('{current}', currentStep)
+    .replace('{total}', totalSteps);
+  
+  document.getElementById('stepLabel').textContent = labelText;
+  document.getElementById('stepPercent').textContent = Math.round(percent) + '%';
+}
+
+// ========== STEP 1: CITY ==========
+function selectCity(city) {
+  bookingData.city = city;
+  
+  document.getElementById('cityDubai').classList.toggle('active', city === 'Dubai');
+  document.getElementById('citySharjah').classList.toggle('active', city === 'Sharjah');
+  
+  // Reset hours to minimum
+  const config = PRICING[city];
+  bookingData.hours = config.minHoursWeekday;
+  document.getElementById('hours').textContent = bookingData.hours;
+  
+  updateMinHoursInfo();
+  updateTotalPrice();
+  enableNextButton();
+}
+
+// ========== STEP 2: WORKERS & HOURS ==========
+function changeWorkers(delta) {
+  const newValue = bookingData.workers + delta;
+  if (newValue >= 1 && newValue <= 5) {
+    bookingData.workers = newValue;
+    document.getElementById('workers').textContent = newValue;
+    updateTotalPrice();
+  }
+}
+
+function changeHours(delta) {
+  if (!bookingData.city) return;
+  
+  const config = PRICING[bookingData.city];
+  const selectedDate = bookingData.date ? new Date(bookingData.date) : new Date();
+  const dayOfWeek = selectedDate.getDay();
+  
+  const isWeekend = config.weekendDays.includes(dayOfWeek);
+  const minHours = isWeekend ? config.minHoursWeekend : config.minHoursWeekday;
+  
+  const newValue = bookingData.hours + delta;
+  if (newValue >= minHours && newValue <= 8) {
+    bookingData.hours = newValue;
+    document.getElementById('hours').textContent = newValue;
+    updateTotalPrice();
+  }
+}
+
+function updateMinHoursInfo() {
+  if (!bookingData.city) {
+    document.getElementById('minHoursInfo').textContent = '';
+    return;
+  }
+  
+  const config = PRICING[bookingData.city];
+  const selectedDate = bookingData.date ? new Date(bookingData.date) : new Date();
+  const dayOfWeek = selectedDate.getDay();
+  
+  const isWeekend = config.weekendDays.includes(dayOfWeek);
+  
+  let infoKey;
+  if (bookingData.city === 'Dubai') {
+    infoKey = isWeekend ? 'minHoursDubaiWeekend' : 'minHoursDubaiWeekday';
+  } else {
+    infoKey = isWeekend ? 'minHoursSharjahWeekend' : 'minHoursSharjahWeekday';
+  }
+  
+  document.getElementById('minHoursInfo').textContent = t(infoKey);
+}
+
+// ========== STEP 3: EXTRA SERVICES ==========
+function renderExtraServices() {
+  const container = document.getElementById('extraServicesGrid');
+  container.innerHTML = '';
+  
+  EXTRA_SERVICES.forEach(service => {
+    const card = document.createElement('div');
+    card.className = 'service-card';
+    card.dataset.serviceId = service.id;
+    
+    const serviceName = currentLanguage === 'ar' ? service.nameAr : service.nameEn;
+    
+    card.innerHTML = `
+      <img src="${service.img}" alt="${serviceName}" class="service-card-img" onerror="this.src='https://via.placeholder.com/400x300/F4B6C2/ffffff?text=${encodeURIComponent(serviceName)}'">
+      <div class="service-card-content">
+        <strong>${serviceName}</strong>
+        <div class="price">${service.price} AED</div>
+      </div>
+    `;
+    
+    card.onclick = () => toggleExtraService(service, card);
+    
+    if (bookingData.extras.some(e => e.id === service.id)) {
+      card.classList.add('active');
+    }
+    
+    container.appendChild(card);
+  });
+}
+
+function toggleExtraService(service, element) {
+  const index = bookingData.extras.findIndex(e => e.id === service.id);
+  
+  if (index > -1) {
+    bookingData.extras.splice(index, 1);
+    element.classList.remove('active');
+  } else {
+    bookingData.extras.push(service);
+    element.classList.add('active');
+  }
+  
+  updateTotalPrice();
+}
+
+// ========== STEP 4: DATE & TIME ==========
+function renderDates() {
+  const container = document.getElementById('dateScroll');
+  container.innerHTML = '';
+  
+  const today = new Date();
+  const daysAr = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+  const daysEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const monthsAr = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+  const monthsEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+  for (let i = 0; i < 31; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() + i);
+    
+    const dayName = currentLanguage === 'ar' ? daysAr[date.getDay()] : daysEn[date.getDay()];
+    const monthName = currentLanguage === 'ar' ? monthsAr[date.getMonth()] : monthsEn[date.getMonth()];
+    
+    const item = document.createElement('div');
+    item.className = 'date-item';
+    item.dataset.date = date.toISOString().split('T')[0];
+    
+    // Check if weekend
+    if (bookingData.city) {
+      const config = PRICING[bookingData.city];
+      if (config.weekendDays.includes(date.getDay())) {
+        item.classList.add('weekend');
+      }
+    }
+    
+    item.innerHTML = `
+      <div class="date-day">${dayName}</div>
+      <div class="date-number">${date.getDate()}</div>
+      <div class="date-month">${monthName}</div>
+    `;
+    
+    item.onclick = () => selectDate(date, item);
+    
+    if (bookingData.date === item.dataset.date) {
+      item.classList.add('active');
+    }
+    
+    container.appendChild(item);
+  }
+}
+
+function selectDate(date, element) {
+  bookingData.date = element.dataset.date;
+  
+  document.querySelectorAll('.date-item').forEach(el => el.classList.remove('active'));
+  element.classList.add('active');
+  
+  // Update minimum hours based on selected date
+  if (bookingData.city) {
+    const config = PRICING[bookingData.city];
+    const dayOfWeek = date.getDay();
+    const isWeekend = config.weekendDays.includes(dayOfWeek);
+    const minHours = isWeekend ? config.minHoursWeekend : config.minHoursWeekday;
+    
+    if (bookingData.hours < minHours) {
+      bookingData.hours = minHours;
+      document.getElementById('hours').textContent = minHours;
+    }
+    
+    updateMinHoursInfo();
+  }
+  
+  updateTotalPrice();
+  checkStep4Complete();
+}
+
+function renderTimes() {
+  const container = document.getElementById('timeGrid');
+  container.innerHTML = '';
+  
+  const times = [];
+  for (let hour = 8; hour < 20; hour++) {
+    for (let min = 0; min < 60; min += 30) {
+      const startTime = `${hour.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}`;
+      const endHour = min === 30 ? hour + 1 : hour;
+      const endMin = min === 30 ? '00' : '30';
+      const endTime = `${endHour.toString().padStart(2, '0')}:${endMin}`;
+      
+      times.push(`${startTime} - ${endTime}`);
+    }
+  }
+  
+  const initialCount = 6;
+  const timesToShow = showingAllTimes ? times : times.slice(0, initialCount);
+  
+  timesToShow.forEach(time => {
+    const item = document.createElement('div');
+    item.className = 'time-item';
+    item.textContent = time;
+    item.onclick = () => selectTime(time, item);
+    
+    if (bookingData.time === time) {
+      item.classList.add('active');
+    }
+    
+    container.appendChild(item);
+  });
+  
+  document.getElementById('seeMoreBtn').classList.toggle('hidden', showingAllTimes || times.length <= initialCount);
+}
+
+function selectTime(time, element) {
+  bookingData.time = time;
+  
+  document.querySelectorAll('.time-item').forEach(el => el.classList.remove('active'));
+  element.classList.add('active');
+  
+  checkStep4Complete();
+}
+
+function toggleMoreTimes() {
+  showingAllTimes = !showingAllTimes;
+  renderTimes();
+  document.getElementById('seeMoreText').textContent = showingAllTimes ? t('seeLess') : t('seeMore');
+}
+
+function checkStep4Complete() {
+  if (bookingData.date && bookingData.time) {
+    enableNextButton();
+  }
+}
+
+// ========== STEP 5: CONTACT ==========
+function validatePhone() {
+  const phone = document.getElementById('phoneInput').value;
+  const alert = document.getElementById('validationAlert');
+  
+  const cleaned = phone.replace(/\D/g, '');
+  document.getElementById('phoneInput').value = cleaned;
+  
+  if (cleaned.length === 9 && cleaned.startsWith('5')) {
+    alert.classList.remove('show');
+    bookingData.phone = '+971' + cleaned;
+    checkStep5Complete();
+    return true;
+  } else if (cleaned.length > 0) {
+    alert.textContent = t('validationPhone');
+    alert.classList.add('show');
+    return false;
+  } else {
+    alert.classList.remove('show');
+    return false;
+  }
+}
+
+function checkStep5Complete() {
+  const phone = document.getElementById('phoneInput').value;
+  const address = document.getElementById('addressInput').value.trim();
+  
+  if (phone.length === 9 && phone.startsWith('5') && address.length > 0) {
+    bookingData.address = address;
+    enableNextButton();
+  } else {
+    disableNextButton();
+  }
+}
+
+// ========== STEP 6: SUMMARY ==========
+function renderSummary() {
+  const container = document.getElementById('summaryCard');
+  
+  const extrasText = bookingData.extras.length > 0 
+    ? bookingData.extras.map(e => currentLanguage === 'ar' ? e.nameAr : e.nameEn).join(', ')
+    : t('noExtras');
+  
+  const totalPrice = calculateTotal();
+  
+  const dateObj = new Date(bookingData.date);
+  const dateFormatted = currentLanguage === 'ar' 
+    ? `${dateObj.getDate()}/${dateObj.getMonth() + 1}/${dateObj.getFullYear()}`
+    : `${dateObj.getMonth() + 1}/${dateObj.getDate()}/${dateObj.getFullYear()}`;
+  
+  container.innerHTML = `
+    <div class="summary-row">
+      <strong>${t('summaryCity')}:</strong>
+      <span>${bookingData.city}</span>
+    </div>
+    <div class="summary-row">
+      <strong>${t('summaryWorkers')}:</strong>
+      <span>${bookingData.workers}</span>
+    </div>
+    <div class="summary-row">
+      <strong>${t('summaryHours')}:</strong>
+      <span>${bookingData.hours}</span>
+    </div>
+    <div class="summary-row">
+      <strong>${t('summaryExtras')}:</strong>
+      <span>${extrasText}</span>
+    </div>
+    <div class="summary-row">
+      <strong>${t('summaryDate')}:</strong>
+      <span>${dateFormatted}</span>
+    </div>
+    <div class="summary-row">
+      <strong>${t('summaryTime')}:</strong>
+      <span>${bookingData.time}</span>
+    </div>
+    <div class="summary-row">
+      <strong>${t('summaryPhone')}:</strong>
+      <span>${bookingData.phone}</span>
+    </div>
+    <div class="summary-row">
+      <strong>${t('summaryAddress')}:</strong>
+      <span>${bookingData.address}</span>
+    </div>
+    <div class="summary-total">
+      <strong>${t('summaryTotal')}:</strong>
+      <span class="total-price">${totalPrice} AED</span>
+    </div>
+  `;
+}
+
+// ========== PRICING ==========
+function calculateTotal() {
+  if (!bookingData.city) return 0;
+  
+  const config = PRICING[bookingData.city];
+  
+  // Check if selected date is weekend
+  let isWeekend = false;
+  if (bookingData.date) {
+    const dateObj = new Date(bookingData.date);
+    isWeekend = config.weekendDays.includes(dateObj.getDay());
+  }
+  
+  // Base price per hour
+  const pricePerHour = config.basePrice + (isWeekend ? config.weekendSurcharge : 0);
+  
+  // Total base price
+  let total = pricePerHour * bookingData.hours * bookingData.workers;
+  
+  // Add extras
+  bookingData.extras.forEach(service => {
+    total += service.price;
+  });
+  
+  return total.toFixed(2);
+}
+
+function updateTotalPrice() {
+  const total = calculateTotal();
+  document.getElementById('totalPrice').textContent = total + ' AED';
+}
+
+// ========== NAVIGATION ==========
+function nextStep() {
+  if (currentStep === 5) {
+    const phone = document.getElementById('phoneInput').value;
+    const address = document.getElementById('addressInput').value.trim();
+    const alert = document.getElementById('validationAlert');
+    
+    if (!phone || phone.length !== 9 || !phone.startsWith('5')) {
+      alert.textContent = t('validationPhone');
+      alert.classList.add('show');
+      return;
+    }
+    
+    if (!address) {
+      alert.textContent = t('validationAddress');
+      alert.classList.add('show');
+      return;
+    }
+    
+    bookingData.phone = '+971' + phone;
+    bookingData.address = address;
+  }
+  
+  document.getElementById('step' + currentStep).classList.remove('active');
+  currentStep++;
+  document.getElementById('step' + currentStep).classList.add('active');
+  
+  updateProgress();
+  updateButtonText();
+  disableNextButton();
+  
+  if (currentStep === 2) {
+    enableNextButton();
+  } else if (currentStep === 3) {
+    enableNextButton();
+  } else if (currentStep === 6) {
+    renderSummary();
+    enableNextButton();
+  } else if (currentStep === 7) {
+    sendWhatsAppMessage();
+    document.querySelector('.footer').style.display = 'none';
+  }
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function enableNextButton() {
+  document.getElementById('nextBtn').disabled = false;
+}
+
+function disableNextButton() {
+  document.getElementById('nextBtn').disabled = true;
+}
+
+// ========== WHATSAPP ==========
+function sendWhatsAppMessage() {
+  const phoneNumber = '00971528969251';
+  
+  const dateObj = new Date(bookingData.date);
+  const dateFormatted = `${dateObj.getDate()}/${dateObj.getMonth() + 1}/${dateObj.getFullYear()}`;
+  
+  let message = '';
+  
+  if (currentLanguage === 'ar') {
+    message = `💗 *حجز جديد - EM SPARKLE CLEAN* 💗\n\n`;
+    message += `🏙 *المدينة:* ${bookingData.city}\n`;
+    message += `👩‍💼 *عدد العاملات:* ${bookingData.workers}\n`;
+    message += `⏰ *عدد الساعات:* ${bookingData.hours}\n`;
+    
+    if (bookingData.extras.length > 0) {
+      message += `✨ *خدمات إضافية:*\n`;
+      bookingData.extras.forEach(service => {
+        message += `   ♥ ${service.nameAr} (${service.price} AED)\n`;
+      });
+    }
+    
+    message += `📅 *التاريخ:* ${dateFormatted}\n`;
+    message += `🕐 *وقت البدء:* ${bookingData.time}\n`;
+    message += `📞 *الهاتف:* ${bookingData.phone}\n`;
+    message += `🏠 *العنوان:* ${bookingData.address}\n`;
+    message += `\n💰 *الإجمالي:* ${calculateTotal()} AED`;
+  } else {
+    message = `💗 *New Booking - EM SPARKLE CLEAN* 💗\n\n`;
+    message += `🏙 *City:* ${bookingData.city}\n`;
+    message += `👩‍💼 *Cleaners:* ${bookingData.workers}\n`;
+    message += `⏰ *Hours:* ${bookingData.hours}\n`;
+    
+    if (bookingData.extras.length > 0) {
+      message += `✨ *Extra Services:*\n`;
+      bookingData.extras.forEach(service => {
+        message += `   ♥ ${service.nameEn} (${service.price} AED)\n`;
+      });
+    }
+    
+    message += `📅 *Date:* ${dateFormatted}\n`;
+    message += `🕐 *Start Time:* ${bookingData.time}\n`;
+    message += `📞 *Phone:* ${bookingData.phone}\n`;
+    message += `🏠 *Address:* ${bookingData.address}\n`;
+    message += `\n💰 *Total:* ${calculateTotal()} AED`;
+  }
+  
+  const encodedMessage = encodeURIComponent(message);
+  const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+  
+  window.open(whatsappURL, '_blank');
+}
+
+// ========== INITIALIZATION ==========
+document.addEventListener('DOMContentLoaded', function() {
+  updateProgress();
+  updateTotalPrice();
+  renderExtraServices();
+  renderDates();
+  renderTimes();
+  
+  console.log('✨ EM SPARKLE CLEAN ♥ Booking System Initialized');
+});
+</script>
+
+</body>
+</html>
