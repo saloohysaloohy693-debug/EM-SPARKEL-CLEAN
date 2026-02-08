@@ -9,7 +9,7 @@
 
 <style>
 :root{
---primary:#6366F1;--dark:#111827;--light:#F3F4F6;--medium:#D1D5DB;--text:#374151;
+--primary:#6366F1;--light:#F3F4F6;--medium:#D1D5DB;--dark:#111827;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:Poppins,sans-serif;background:var(--light)}
@@ -17,18 +17,24 @@ body{margin:0;font-family:Poppins,sans-serif;background:var(--light)}
 .header{text-align:center;padding:20px;border-bottom:1px solid var(--light)}
 .progress-bar{height:8px;background:var(--light)}
 .progress-bar-inner{height:100%;width:0;background:var(--primary);transition:.3s}
+
 .step{display:none;padding:25px;flex:1}
 .step.active{display:block}
+
 .option-group{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 .option-card{border:2px solid var(--medium);border-radius:12px;padding:15px;text-align:center;cursor:pointer}
-.option-card.active{background:var(--primary);color:#fff}
+.option-card.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
 .counter{display:flex;justify-content:space-between;background:var(--light);padding:10px;border-radius:12px}
-.counter-btn{width:40px;height:40px;border:none;font-size:22px;cursor:pointer}
+.counter-btn{width:40px;height:40px;border:none;border-radius:50%;font-size:22px;cursor:pointer}
+
 .footer{padding:20px;border-top:1px solid var(--light)}
 .btn{width:100%;padding:15px;border:none;border-radius:12px;font-size:16px;font-weight:600}
 .btn:disabled{background:var(--medium)}
+.btn-primary{background:var(--primary);color:#fff}
+
 .lang-switcher{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
-.lang-switcher button{border:2px solid var(--medium);background:none;border-radius:8px;padding:6px 12px;cursor:pointer}
+.lang-switcher button{border:2px solid var(--medium);background:none;border-radius:8px;padding:6px 14px;cursor:pointer}
 .lang-switcher .active{background:var(--primary);color:#fff}
 </style>
 </head>
@@ -39,72 +45,108 @@ body{margin:0;font-family:Poppins,sans-serif;background:var(--light)}
 <div class="header"><h1>EM SPARKLE CLEAN</h1></div>
 <div class="progress-bar"><div id="progressBar" class="progress-bar-inner"></div></div>
 
+<!-- STEP 1 -->
 <div id="step1" class="step active">
 <div class="lang-switcher">
-<button onclick="setLanguage('en')">EN</button>
-<button onclick="setLanguage('ar')" class="active">AR</button>
+<button id="lang-en">EN</button>
+<button id="lang-ar" class="active">AR</button>
 </div>
-<h3>اختر مدينتك</h3>
+<h3 id="cityTitle">اختر مدينتك</h3>
 <div class="option-group">
-<div class="option-card" onclick="setCity(this)">دبي</div>
-<div class="option-card" onclick="setCity(this)">الشارقة</div>
+<div class="option-card" data-city="Dubai">دبي</div>
+<div class="option-card" data-city="Sharjah">الشارقة</div>
 </div>
 </div>
 
+<!-- STEP 2 -->
 <div id="step2" class="step">
-<h3>تفاصيل الخدمة</h3>
-<p>عدد العمال</p>
+<h3 id="detailsTitle">تفاصيل الخدمة</h3>
+<p id="workersLabel">عدد العمال</p>
 <div class="counter">
-<button class="counter-btn" onclick="changeWorkers(-1)">−</button>
+<button class="counter-btn" id="wm">−</button>
 <b id="workers">1</b>
-<button class="counter-btn" onclick="changeWorkers(1)">+</button>
-</div>
-<p>عدد الساعات</p>
-<div class="counter">
-<button class="counter-btn" onclick="changeHours(-1)">−</button>
-<b id="hours">2</b>
-<button class="counter-btn" onclick="changeHours(1)">+</button>
-</div>
+<button class="counter-btn" id="wp">+</button>
 </div>
 
-<div id="step3" class="step"><h3>كمل وانت مرتاح 😎</h3></div>
+<p id="hoursLabel">عدد الساعات</p>
+<div class="counter">
+<button class="counter-btn" id="hm">−</button>
+<b id="hours">2</b>
+<button class="counter-btn" id="hp">+</button>
+</div>
+</div>
 
 <div class="footer">
-<button id="nextBtn" class="btn btn-primary" onclick="nextStep()" disabled>التالي</button>
+<button id="nextBtn" class="btn btn-primary" disabled>التالي</button>
 </div>
 
 </div>
 
 <script>
+/* ===== STATE ===== */
 let step = 1;
-let booking = { workers:1, hours:2 };
+let lang = 'ar';
+let city = null;
+let workers = 1;
+let hours = 2;
 
-function setCity(el){
-  document.querySelectorAll('.option-card').forEach(e=>e.classList.remove('active'));
-  el.classList.add('active');
-  nextBtn.disabled = false;
+/* ===== ELEMENTS ===== */
+const nextBtn = document.getElementById('nextBtn');
+const progressBar = document.getElementById('progressBar');
+
+/* ===== CITY ===== */
+document.querySelectorAll('[data-city]').forEach(btn=>{
+btn.onclick=()=>{
+document.querySelectorAll('[data-city]').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+city = btn.dataset.city;
+checkReady();
+};
+});
+
+/* ===== COUNTERS ===== */
+wp.onclick=()=>{workers++;workersEl();};
+wm.onclick=()=>{if(workers>1)workers--;workersEl();};
+hp.onclick=()=>{hours++;hoursEl();};
+hm.onclick=()=>{if(hours>1)hours--;hoursEl();};
+
+function workersEl(){document.getElementById('workers').innerText=workers;checkReady();}
+function hoursEl(){document.getElementById('hours').innerText=hours;checkReady();}
+
+/* ===== LANGUAGE ===== */
+document.getElementById('lang-en').onclick=()=>setLang('en');
+document.getElementById('lang-ar').onclick=()=>setLang('ar');
+
+function setLang(l){
+lang=l;
+document.documentElement.dir=l==='ar'?'rtl':'ltr';
+
+document.getElementById('lang-en').classList.toggle('active',l==='en');
+document.getElementById('lang-ar').classList.toggle('active',l==='ar');
+
+document.getElementById('cityTitle').innerText=l==='ar'?'اختر مدينتك':'Choose your city';
+document.getElementById('detailsTitle').innerText=l==='ar'?'تفاصيل الخدمة':'Service details';
+document.getElementById('workersLabel').innerText=l==='ar'?'عدد العمال':'Number of workers';
+document.getElementById('hoursLabel').innerText=l==='ar'?'عدد الساعات':'Number of hours';
+nextBtn.innerText=l==='ar'?'التالي':'Next';
+
+const cities=document.querySelectorAll('[data-city]');
+cities[0].innerText=l==='ar'?'دبي':'Dubai';
+cities[1].innerText=l==='ar'?'الشارقة':'Sharjah';
 }
 
-function changeWorkers(v){
-  booking.workers = Math.max(1, booking.workers + v);
-  workers.innerText = booking.workers;
-}
+/* ===== NAV ===== */
+nextBtn.onclick=()=>{
+document.getElementById('step'+step).classList.remove('active');
+step++;
+document.getElementById('step'+step).classList.add('active');
+progressBar.style.width=((step-1)/2*100)+'%';
+nextBtn.disabled=true;
+};
 
-function changeHours(v){
-  booking.hours = Math.max(1, booking.hours + v);
-  hours.innerText = booking.hours;
-}
-
-function nextStep(){
-  document.getElementById('step'+step).classList.remove('active');
-  step++;
-  document.getElementById('step'+step).classList.add('active');
-  progressBar.style.width = ((step-1)/3*100)+'%';
-  nextBtn.disabled = true;
-}
-
-function setLanguage(lang){
-  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+/* ===== READY ===== */
+function checkReady(){
+nextBtn.disabled=!(city && workers>0 && hours>0);
 }
 </script>
 
